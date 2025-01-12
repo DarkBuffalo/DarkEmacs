@@ -137,7 +137,7 @@
 ;; Recently opened files
 (require 'recentf)
 
-(setq recentf-save-file (expand-file-name "recentf.el" shan-cache-dir)
+(setq recentf-save-file (expand-file-name "recentf.el" dark-cache-dir)
       recentf-max-saved-items 10)
 
 (defun doom--recentf-file-truename-fn (file)
@@ -157,7 +157,7 @@ space)"
 
 ;; TODO: refine this somewhere between refining dashboard, buffers, search, and projectile
 ;; Persist variables across sessions
-(setq savehist-file (expand-file-name "savehist.el" shan-cache-dir))
+(setq savehist-file (expand-file-name "savehist.el" dark-cache-dir))
 
 (provide 'core-basics)
 ;;; core-basics.el ends here

@@ -55,22 +55,13 @@
   :defer t
   :init
   ;; Must be set early to prevent ~/.config/emacs/transient from being created
-  (setq transient-levels-file  (concat shan-cache-dir "/transient/levels")
-        transient-values-file  (concat shan-cache-dir "/transient/values")
-        transient-history-file (concat shan-cache-dir "/transient/history"))
+  (setq transient-levels-file  (concat dark-cache-dir "/transient/levels")
+        transient-values-file  (concat dark-cache-dir "/transient/values")
+        transient-history-file (concat dark-cache-dir "/transient/history"))
   :config
   (transient-bind-q-to-quit)
   (setq transient-default-level 5))
 
-;; (package! git-commit
-;;   :if (feature-p! +git)
-;;   :config
-;;   ;; Enforce git commit conventions.
-;;   ;; See https://chris.beams.io/posts/git-commit/
-;;   (setq git-commit-summary-max-length 50
-;;         git-commit-style-convention-checks '(overlong-summary-line non-empty-second-line))
-
-;;   (global-git-commit-mode t))
 
 (package! git-modes
   :if (feature-p! +git))

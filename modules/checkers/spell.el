@@ -34,7 +34,7 @@
    (unless ispell-personal-dictionary
      (setq ispell-personal-dictionary
            (expand-file-name (concat "ispell/" ispell-dictionary ".pws")
-                             shan-etc-dir)))
+                             dark-etc-dir)))
 
    (defun +spell-remove-run-together-switch-for-aspell-h ()
      (setq-local ispell-extra-args (remove "--run-together" ispell-extra-args)))

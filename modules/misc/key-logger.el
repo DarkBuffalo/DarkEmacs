@@ -4,7 +4,7 @@
 (package! keyfreq
   :if (feature-p! +freq)
   :config
-  (setq keyfreq-file (expand-file-name "keyfreq.el" shan-cache-dir))
+  (setq keyfreq-file (expand-file-name "keyfreq.el" dark-cache-dir))
   (keyfreq-autosave-mode t)
   (keyfreq-mode t))
 

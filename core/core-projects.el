@@ -11,7 +11,7 @@
   (:map projectile-mode-map
         ("C-c p" . projectile-command-map))
   :config
-  (setq projectile-cache-file (expand-file-name "projectile.cache" shan-cache-dir)
+  (setq projectile-cache-file (expand-file-name "projectile.cache" dark-cache-dir)
         ;; Auto-discovery is slow to do by default. Better to update the list
         ;; when you need to (`projectile-discover-projects-in-search-path').
         projectile-auto-discover nil
@@ -19,7 +19,7 @@
         projectile-globally-ignored-files '(".DS_Store" "TAGS")
         projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o")
         projectile-kill-buffers-filter 'kill-only-files
-        projectile-known-projects-file (f-join shan-cache-dir "projectile.projects")
+        projectile-known-projects-file (f-join dark-cache-dir "projectile.projects")
         projectile-ignored-projects (list "~/" temporary-file-directory)
         ;; ignore set up: https://www.youtube.com/watch?v=qpv9i_I4jYU
         projectile-indexing-method (if (memq system-type '(ms-dos windows-nt cygwin))

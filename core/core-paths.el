@@ -9,26 +9,26 @@
 
 (defconst custom-file (concat user-emacs-directory "custom.el"))
 
-(defvar shan-core-dir (expand-file-name "core" user-emacs-directory)
+(defvar dark-core-dir (expand-file-name "core" user-emacs-directory)
   "Directory with all the core files.")
 
-(defvar shan-modules-dir (expand-file-name "modules" user-emacs-directory)
+(defvar dark-modules-dir (expand-file-name "modules" user-emacs-directory)
   "Directory with all the module files.")
 
-(defconst shan-local-dir (expand-file-name ".local" user-emacs-directory)
+(defconst dark-local-dir (expand-file-name ".local" user-emacs-directory)
   "Root directory for local storage.
 
 TODO: figure out how to move to doom esque management from `no-littering'.")
 
-(defconst shan-etc-dir (expand-file-name "etc" shan-local-dir)
+(defconst dark-etc-dir (expand-file-name "etc" dark-local-dir)
   "Directory for non-volatile local storage.
 Use this for files that don't change much, like server binaries, external
 dependencies or long-term shared data. Must end with a slash.")
 
-(defconst shan-var-dir (expand-file-name "var" shan-local-dir)
+(defconst dark-var-dir (expand-file-name "var" dark-local-dir)
   "Directory for installed and created files for config.")
 
-(defconst shan-cache-dir (expand-file-name "cache" shan-var-dir)
+(defconst shan-cache-dir (expand-file-name "cache" dark-var-dir)
   "Directory for volatile local storage.
 Use this for files that change often, like cache files.")
 

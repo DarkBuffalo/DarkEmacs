@@ -11,7 +11,7 @@
 
 ;; ensure our config directories exist
 ;; since some programs will fail like `recentf' or `keyfreq'
-(dolist (dir (list shan-local-dir shan-etc-dir shan-var-dir shan-cache-dir))
+(dolist (dir (list dark-local-dir dark-etc-dir dark-var-dir dark-cache-dir))
   (f-mkdir dir))
 
 

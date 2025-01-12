@@ -23,8 +23,8 @@
         ("C-c f" . lsp-format-buffer))
   :config
   ;; Handle paths for lsp related generated files
-  (setq lsp-session-file (expand-file-name "lsp-session" shan-etc-dir)
-        lsp-server-install-dir (expand-file-name "lsp" shan-etc-dir))
+  (setq lsp-session-file (expand-file-name "lsp-session" dark-etc-dir)
+        lsp-server-install-dir (expand-file-name "lsp" dark-etc-dir))
 
   (setq lsp-auto-configure t ; this does a lot of magic we have to work around
         lsp-auto-guess-root t
@@ -57,8 +57,8 @@
 (package! dap-mode
   :if (feature-p! +dap)
   :config
-  (setq dap-breakpoints-file (expand-file-name "dap/breakpoints" shan-etc-dir)
-        dap-utils-extension-path (expand-file-name "dap/extensions" shan-etc-dir)))
+  (setq dap-breakpoints-file (expand-file-name "dap/breakpoints" dark-etc-dir)
+        dap-utils-extension-path (expand-file-name "dap/extensions" dark-etc-dir)))
 
 ;; TODO: will look into this later
 ;; definitely potential for optimization

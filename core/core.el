@@ -7,7 +7,7 @@
 (load (expand-file-name (expand-file-name "core/core-paths" user-emacs-directory))
       nil 'nomessage)
 (require 'core-paths)
-(add-to-list 'load-path shan-core-dir)
+(add-to-list 'load-path dark-core-dir)
 
 ;; set up package management
 (require 'core-paths)

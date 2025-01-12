@@ -137,14 +137,14 @@ Will also execute any BODY code if lsp is active."
 
 ;; Load the config
 (defun core-module/load-module (category module)
-  "Load `CATEGORY'/`MODULE'/config.el in `shan-modules-dir'."
+  "Load `CATEGORY'/`MODULE'/config.el in `dark-modules-dir'."
   (interactive)
   (let* ((module-name (if module
-                          (f-join shan-modules-dir category module)
+                          (f-join dark-modules-dir category module)
                         (f-no-ext
                          (f-dirname
-                          (read-file-name "Enter module: " shan-modules-dir)))))
-         (module-path (f-join shan-modules-dir module-name)))
+                          (read-file-name "Enter module: " dark-modules-dir)))))
+         (module-path (f-join dark-modules-dir module-name)))
     (load module-path nil 'nomessage)))
 
 (defun core-module/load (modules)
