@@ -1,4 +1,20 @@
 ;;; core-paths.el --- some path logic -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2025 DarkBuffalo
+;; Author: DarkBuffalo
+;; Version: 20250111.2322
+;; Keywords: configuration
+;; Homepage: https://github.com/DarkBuffalo/emacs.d/
+;;
+;;           ______              __    _______        ___  ___       __
+;;          |   _  \ .---.-.----|  |--|   _   .--.--.'  _.'  _.---.-|  .-----.
+;; ^_/-...-\_^  |   \|  _  |   _|    <|.  1   |  |  |   _|   _|  _  |  |  _  |
+;; \__/> o\__/  |    |___._|__| |__|__|.  _   |_____|__| |__| |___._|__|_____|
+;;    \   / |:  1    /                |:  1    \
+;;    (^_^) |::.. . /                 |::.. .  /
+;;          `------'                  `-------'
+;;
+;; This file is not part of GNU Emacs.
 ;;; Commentary:
 ;;; Code:
 
@@ -28,7 +44,7 @@ dependencies or long-term shared data. Must end with a slash.")
 (defconst dark-var-dir (expand-file-name "var" dark-local-dir)
   "Directory for installed and created files for config.")
 
-(defconst shan-cache-dir (expand-file-name "cache" dark-var-dir)
+(defconst dark-cache-dir (expand-file-name "cache" dark-var-dir)
   "Directory for volatile local storage.
 Use this for files that change often, like cache files.")
 

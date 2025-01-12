@@ -23,7 +23,7 @@
       gc-cons-percentage 0.6
       file-name-handler-alist nil)
 
-(defun shan|revert-gc ()
+(defun dark|revert-gc ()
   "Reset values and garbage collect."
   (setq gc-cons-threshold (* 16 1024 1024) ; 16 mib is better than the default
         gc-cons-percentage 0.1
@@ -33,7 +33,7 @@
   (makunbound 'last-file-name-handler-alist)
   (garbage-collect))
 
-(add-hook 'after-init-hook 'shan|revert-gc)
+(add-hook 'after-init-hook 'dark|revert-gc)
 
 ;; In noninteractive sessions, prioritize non-byte-compiled source files to
 ;; prevent the use of stale byte-code. Otherwise, it saves us a little IO time
@@ -50,11 +50,11 @@
 ;; Ensure config is running out of this file's directory
 (setq user-emacs-directory (file-name-directory load-file-name))
 
-;; Load the heart of config
+;; Charger le coeur de la configuration
 (load (expand-file-name "core/core" user-emacs-directory)
       nil 'nomessage)
 
-;; Load modules that were requested
+;; Charger les modules
 (require 'core-module)
 (core-module/load-config)
 

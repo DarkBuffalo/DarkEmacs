@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'core-paths)
+
 ;; ;; HACK: I have no idea what this is, but straight needs it 'defined'
 ;; ;; I think it was renamed but there's a discrepancy between straight and emacs
 ;; (defvar native-comp-deferred-compilation-deny-list
@@ -34,6 +36,7 @@
 ;; (require 'straight)
 ;; (straight-use-package 'use-package)
 ;; (require 'use-package)
+
 
 ;; ;; abstract straight so it can be observed and potentially hot swappable later
  (defvar core-straight--loaded-packages '()
@@ -119,7 +122,7 @@
 
 ;; Set eln-cache dir [[https://emacs.stackexchange.com/questions/70449/set-custom-location-for-eln-cache][emacs stack solution]]
 (when (boundp 'native-comp-eln-load-path)
-  (startup-redirect-eln-cache (expand-file-name "local/var/eln-cache/" user-emacs-directory)))
+  (startup-redirect-eln-cache (expand-file-name "eln-cache/" dark-var-dir)))
 
 ;; Configure Byte Compile
 
@@ -185,7 +188,7 @@
 (defvar straight-base-dir)
 
 ;; prevent package.el loading packages prior to their init-file loading.
-(setq straight-base-dir user-emacs-directory
+(setq straight-base-dir dark-local-dir
       package-quickstart nil
       package-enable-at-startup nil)
 
@@ -201,7 +204,7 @@
       use-package-always-defer t)
 
 (defvar bootstrap-version)
-(let ((bootstrap-file (concat straight-base-dir "straight/repos/straight.el/bootstrap.el"))
+(let ((bootstrap-file (concat straight-base-dir "/straight/repos/straight.el/bootstrap.el"))
       (install-url "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el")
       (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)

@@ -1,4 +1,19 @@
 ;;; core-util.el --- defines utility variables, functions, and macros -*- lexical-binding: t -*-
+;; Copyright (C) 2025 DarkBuffalo
+;; Author: DarkBuffalo
+;; Version: 20250111.2322
+;; Keywords: configuration
+;; Homepage: https://github.com/DarkBuffalo/DarkEmacs/
+;;
+;;           ______              __    _______        ___  ___       __
+;;          |   _  \ .---.-.----|  |--|   _   .--.--.'  _.'  _.---.-|  .-----.
+;; ^_/-...-\_^  |   \|  _  |   _|    <|.  1   |  |  |   _|   _|  _  |  |  _  |
+;; \__/> o\__/  |    |___._|__| |__|__|.  _   |_____|__| |__| |___._|__|_____|
+;;    \   / |:  1    /                |:  1    \
+;;    (^_^) |::.. . /                 |::.. .  /
+;;          `------'                  `-------'
+;;
+;; This file is not part of GNU Emacs.
 ;;; Commentary:
 ;;; Code:
 
@@ -146,12 +161,12 @@ This is a wrapper around `eval-after-load' that:
 
 ;; Au revoir Doom...
 
-(defun shan/refresh-buffer ()
+(defun dark/refresh-buffer ()
   "Refresh the current buffer."
   (interactive)
   (revert-buffer :ignore-auto :noconfirm))
 
-(defun shan/scratch ()
+(defun dark/scratch ()
   "Create a new scratch buffer to work in.  (could be *scratch* - *scratchX*)."
   (interactive)
   (let ((n 0) bufname)
@@ -164,13 +179,13 @@ This is a wrapper around `eval-after-load' that:
     (switch-to-buffer (get-buffer-create bufname))
     (lisp-interaction-mode)))
 
-(defun shan/sudo-edit (file-name)
+(defun dark/sudo-edit (file-name)
   "Like find file, but opens FILE-NAME as root."
   (interactive "FSudo Find File: ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
 
-(defun shan/delete-this-file ()
+(defun dark/delete-this-file ()
   "Delete the current file, and kill the buffer."
   (interactive)
   (unless (buffer-file-name)
@@ -180,7 +195,7 @@ This is a wrapper around `eval-after-load' that:
     (delete-file (buffer-file-name))
     (kill-this-buffer)))
 
-(defun shan/rename-this-file-and-buffer ()
+(defun dark/rename-this-file-and-buffer ()
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive)
   (let ((new-name (read-string
@@ -196,7 +211,7 @@ This is a wrapper around `eval-after-load' that:
       (set-visited-file-name new-name)
       (rename-buffer new-name))))
 
-(defun shan/browser-current-file ()
+(defun dark/browser-current-file ()
   "Open the current file as a URL using `browse-url'."
   (interactive)
   (let ((file-name (buffer-file-name)))
@@ -205,46 +220,46 @@ This is a wrapper around `eval-after-load' that:
         (error "Cannot open tramp file")
       (browse-url (concat "file://" file-name)))))
 
-(defun shan/copy-real-path ()
+(defun dark/copy-real-path ()
   "Copy the current file path to kill ring."
   (interactive)
   (kill-new buffer-file-name))
 
-(defun shan/copy-buffer-name ()
+(defun dark/copy-buffer-name ()
   "Copy the current file path to kill ring."
   (interactive)
   (kill-new (buffer-name)))
 
-(defun shan/copy-hooks-to (from-hook to-hook)
+(defun dark/copy-hooks-to (from-hook to-hook)
   "Copy one list of hooks to another, from FROM-HOOK into TO-HOOK.
 This avoid without the weird nonc circular list problem."
   (dolist (hook from-hook)
     (add-hook to-hook hook)))
 
 ;; TODO: I seriously need to figure out proper saving...
-(defun shan/vanilla-save ()
+(defun dark/vanilla-save ()
   "Save file without any hooks applied."
   (interactive)
   (funcall (no-hook! 'save-buffer '(before-save-hook after-save-hook))))
 
-(defun shan/symbol-append (&rest symbols)
+(defun dark/symbol-append (&rest symbols)
   "Concatenate n SYMBOLS and return a symbol."
   (intern (apply #'s-concat
                  (mapcar #'symbol-name symbols))))
 
-(defun shan/ensure-list (item)
+(defun dark/ensure-list (item)
   "Ensure that ITEM is a list. If it's not a list, wrap it in a list."
   (if (listp item)
       item
     (list item)))
 
-(defun shan/random-element-from-list (lst)
+(defun dark/random-element-from-list (lst)
   "Choose a random element from the given list `LST'."
   (if lst
       (nth (random (length lst)) lst)
     nil))
 
-(defun shan/chunk-string-length-n (n str)
+(defun dark/chunk-string-length-n (n str)
   "Chunk the string `STR' into groups with a maximum length of `N'."
   (if (<= n 0)
       (error "Chunk size (n) must be greater than 0")

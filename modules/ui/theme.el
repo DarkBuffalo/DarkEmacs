@@ -6,13 +6,12 @@
 ;; has better keyword support as far as I’ve seen. It’s also just easy on my
 ;; eyes.
 (package! doom-themes
-  :demand t
+  :ensure t
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (doom-themes-org-config)
-  ;;(load-theme 'doom-one t)
-  )
+  (load-theme 'doom-one t)
+  (doom-themes-org-config))
 
 ;; The dark nights sometimes need a little sun. The slight brightness is nice
 ;; for the eyes.
