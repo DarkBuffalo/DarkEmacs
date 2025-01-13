@@ -28,3 +28,12 @@
   (solaire-global-mode 1)
   (advice-add #'persp-load-state-from-file
               :after #'solaire-mode-restore-persp-mode-buffers))
+
+;; ui a la vi dans les buffers
+(package! vi-tilde-fringe
+  :hook ((prog-mode . vi-tilde-fringe-mode)
+         (org-mode . vi-tilde-fringe-mode)))
+
+(package! hide-mode-line
+  :hook
+  (((enlight-mode org-agenda-mode completion-list-mode man-mode symbols-outline-mode shell-mode pdf-view-mode) . hide-mode-line-mode)))

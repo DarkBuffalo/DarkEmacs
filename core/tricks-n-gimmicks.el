@@ -40,19 +40,20 @@
 ;;   (setq straight-vc-git-default-protocol 'ssh))
 
 ;; custom settings
-(defvar shan--preferred-logo 'logo
+(defvar dark--preferred-logo 'logo
   "Preferred logo for dashboard startup.  If not found, use default.")
 
-(defconst shan--settings-path
+;; INFO Variable PERSO
+(defconst dark--settings-path
   (expand-file-name "settings.el"
                     (expand-file-name "personal" user-emacs-directory))
   "Path to personal settings meant not be public (api keys and stuff).")
 
-(defconst shan--settings-exist? (file-exists-p shan--settings-path)
-  "Checks if shan--settings-path exists.")
+(defconst dark--settings-exist? (file-exists-p dark--settings-path)
+  "Checks if dark--settings-path exists.")
 
-(if shan--settings-exist?
-    (load shan--settings-path nil 'nomessage)
+(if dark--settings-exist?
+    (load dark--settings-path nil 'nomessage)
   (message "Settings file not found!"))
 
 ;; From doom: these two functions don't exist in terminal Emacs, but some Emacs

@@ -45,7 +45,7 @@
 ;;; prevents some cases of flickering.
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-;;; source code pro is good just the way it is.
+;;; Iosevka NF is good just the way it is.
 (when (member "Iosevka NF" (font-family-list))
   (set-face-attribute 'default nil
                       :family "Iosevka NF"

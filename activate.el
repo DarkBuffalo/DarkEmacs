@@ -56,7 +56,7 @@
         (color +todo +whitespace +nums +tokens)
         iconography
         (theme +solaire)
-        modeline
+        (modeline +keycast)
         dashboard
         discoverability
 

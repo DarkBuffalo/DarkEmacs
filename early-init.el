@@ -50,6 +50,13 @@
 ;; Ensure config is running out of this file's directory
 (setq user-emacs-directory (file-name-directory load-file-name))
 
+;; Titre de la fenetre
+(defvar dark-emacs-frame-title-format "%b – DarkEmacs"
+  "Template for displaying the title bar of visible and iconified frame.")
+
+(setq frame-title-format dark-emacs-frame-title-format
+      icon-title-format dark-emacs-frame-title-format)
+
 ;; Charger le coeur de la configuration
 (load (expand-file-name "core/core" user-emacs-directory)
       nil 'nomessage)

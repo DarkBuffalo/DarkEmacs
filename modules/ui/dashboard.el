@@ -3,7 +3,7 @@
 
 
 ;; ADD QUOTE on dashboard-footer
-(defvar +dark-quotes-file (expand-file-name "assets/quotes.txt" user-emacs-directory)
+(defvar +dark-quotes-file (expand-file-name "quotes.txt" dark-assets-dir)
   "Fichier comprenant les citations")
 
 (defvar +dark-quotes-file-seperator-regex "\n%\n"

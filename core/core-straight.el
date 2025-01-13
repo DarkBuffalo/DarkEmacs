@@ -204,7 +204,7 @@
       use-package-always-defer t)
 
 (defvar bootstrap-version)
-(let ((bootstrap-file (concat straight-base-dir "/straight/repos/straight.el/bootstrap.el"))
+(let ((bootstrap-file (concat straight-base-dir "straight/repos/straight.el/bootstrap.el"))
       (install-url "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el")
       (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)

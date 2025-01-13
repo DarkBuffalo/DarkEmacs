@@ -60,7 +60,5 @@
                        core-projects))
   (require core-module))
 
-(message "CORE loaded")
-
 (provide 'core)
 ;;; core.el ends here
