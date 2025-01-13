@@ -10,7 +10,7 @@
 
 (defun core-module/add-category-to-elements (lst)
   "Add a category to each element in `LST'."
-  (--map (list (car lst) (shan/ensure-list it)) (cdr lst)))
+  (--map (list (car lst) (dark/ensure-list it)) (cdr lst)))
 
 (defun core-module/categorize-modules (lst)
   "Categorize modules in `LST' based on category headers."
@@ -120,7 +120,7 @@ Will also execute any BODY code if lsp is active."
   `(with-feature! +lsp
      (after! lsp-mode
        ,@body
-       (add-hook (shan/symbol-append ',mode '-hook) #'lsp-custom/activate-lsp 'append))))
+       (add-hook (dark/symbol-append ',mode '-hook) #'lsp-custom/activate-lsp 'append))))
 
 (defmacro dap! (&rest body)
   "Execute any BODY code if dap feature is active for module and in general."

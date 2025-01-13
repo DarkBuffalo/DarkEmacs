@@ -33,8 +33,10 @@
         :input
         ;;macos
 
+        :notes
+        (org)
         :checkers
-        (spell +flyspell +aspell)
+        (spell  +hunspell)
         (syntax +flycheck)
         (grammar +lsp) ; requires node 16 and pnpm -g add @emacs-grammarly/grammarly-languageserver
 
