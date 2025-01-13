@@ -45,12 +45,15 @@
 ;;; prevents some cases of flickering.
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-;;; Iosevka NF is good just the way it is.
-(when (member "Iosevka NF" (font-family-list))
-  (set-face-attribute 'default nil
-                      :family "Iosevka NF"
-                      :weight 'normal
-                      :width 'normal))
+;; ;;; Iosevka NF is good just the way it is.
+;; (when (member "Iosevka NF" (font-family-list))
+;;   (set-face-attribute 'default nil
+;;                       :family "Iosevka NF"
+;;                       :weight 'normal
+;;                       :width 'normal))
+
+
+
 
 ;;; Noto just seems to break emacs(?)
 (add-to-list 'face-ignored-fonts "Noto Color Emoji")
@@ -93,7 +96,7 @@
 
 ;; Actual Core Basics -- Default Sane Config
 (setq-default require-final-newline t
-              fill-column 120
+              fill-column 80
               vc-follow-symlinks t
               find-file-visit-truename t
               inhibit-compacting-font-caches t)
@@ -115,7 +118,7 @@
   :bind
   ("C-=" . er/expand-region))
 
-(defun shan/fill-or-unfill ()
+(defun dark/fill-or-unfill ()
   "Fill or unfill based on the previous command."
   (interactive)
   (let ((fill-column
@@ -126,7 +129,7 @@
     (call-interactively #'fill-paragraph)))
 
 (global-set-key [remap fill-paragraph]
-                #'shan/fill-or-unfill)
+                #'dark/fill-or-unfill)
 
 ;;; TODO: look into moving larger bulks of texts
 (package! move-text

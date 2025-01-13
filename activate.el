@@ -35,17 +35,22 @@
 
         :notes
         (org)
+
         :checkers
-        (spell  +hunspell)
-        (syntax +flycheck)
-        (grammar +lsp) ; requires node 16 and pnpm -g add @emacs-grammarly/grammarly-languageserver
+        (spell
+         +hunspell)
+        (syntax
+         +flycheck)
+        ;;(grammar +lsp) ; requires node 16 and pnpm -g add @emacs-grammarly/grammarly-languageserver
 
         :completion
         (company +childframe)
         vertico
         snippets
+        corfu
 
         :editor
+        format
         ;; hungry-delete ; FIXME: breaks ivy and other tools
         multiple-cursors
         (parentheses +rainbow)
@@ -55,9 +60,9 @@
         :ui
         (color +todo +whitespace +nums +tokens)
         iconography
-        (theme +solaire)
+        (theme)
         (modeline +keycast)
-        dashboard
+        dashboard                                     ;;enlight
         discoverability
 
         :lang
@@ -72,8 +77,10 @@
         (graphql +lsp)
 
         :misc
-        (key-logger +freq +commands)
+        (key-logger
+         +freq +commands)
         ;; sicp
+        music                                         ;; bongo
         ))
 
 (provide 'activate)

@@ -54,6 +54,7 @@
 ;; load core up
 (dolist (core-module '(core-util
                        tricks-n-gimmicks
+                       core-keybinds
                        core-module
                        core-gc
                        core-basics

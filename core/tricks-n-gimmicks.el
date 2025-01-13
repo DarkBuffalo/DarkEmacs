@@ -3,11 +3,8 @@
 ;; Loads all my tricks-n-gimmicks for a sweeter config.
 ;;; Code:
 (require 'core-straight)
-(message "straight")
 (require 'core-util)
-(message "utils")
 (require 'core-paths)
-(message "path")
 
 ;; ensure our config directories exist
 ;; since some programs will fail like `recentf' or `keyfreq'
@@ -23,18 +20,18 @@
     (exec-path-from-shell-initialize)))
 
 
-;; ;; Check git access
-;; (defconst shan--gh-access (string-prefix-p "Hi" (shell-command-to-string "ssh -T git@github.com"))
+;; ;; Check git access FIXME bug windows
+;; (defconst dark--gh-access (string-prefix-p "Hi" (shell-command-to-string "ssh -T git@github.com"))
 ;;   "Checks if Emacs has ssh access for GitHub (inherited path).")
-;; (defconst shan--gl-access (string-prefix-p "Welcome" (shell-command-to-string "ssh -T git@gitlab.com"))
+;; (defconst dark--gl-access (string-prefix-p "Welcome" (shell-command-to-string "ssh -T git@gitlab.com"))
 ;;   "Checks if Emacs has ssh access for GitLab (inherited path).")
 ;; (message "git acces")
 
 ;; ;; let's log only when it fails
-;; (when (not shan--gh-access)
-;;   (message "GH ACCESS: %s" shan--gh-access))
-;; (when (not shan--gl-access)
-;;   (message "GL ACCESS: %s" shan--gl-access))
+;; (when (not dark--gh-access)
+;;   (message "GH ACCESS: %s" dark--gh-access))
+;; (when (not dark--gl-access)
+;;   (message "GL ACCESS: %s" dark--gl-access))
 
 ;; (when (and shan--gh-access shan--gl-access) ; TODO: i wonder if it's possible to use the repo sources to determine to use ssh
 ;;   (setq straight-vc-git-default-protocol 'ssh))
@@ -42,6 +39,8 @@
 ;; custom settings
 (defvar dark--preferred-logo 'logo
   "Preferred logo for dashboard startup.  If not found, use default.")
+
+
 
 ;; INFO Variable PERSO
 (defconst dark--settings-path

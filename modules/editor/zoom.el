@@ -12,9 +12,11 @@
      ;; TODO: account for different machines properly
      (- (if (equal system-type 'darwin)
             150
-          120)
+          110)
         (face-attribute 'default :height)))))
 
+
+;; Pour mettre le buffer en plein ecran et revenir en arriere
 (package! zoom-window
   :if (feature-p! +window)
   :bind
