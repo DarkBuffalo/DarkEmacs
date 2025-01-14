@@ -45,15 +45,26 @@
 ;;; prevents some cases of flickering.
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-;; ;;; Iosevka NF is good just the way it is.
-;; (when (member "Iosevka NF" (font-family-list))
-;;   (set-face-attribute 'default nil
-;;                       :family "Iosevka NF"
-;;                       :weight 'normal
-;;                       :width 'normal))
+;; FONTS
+(defun font-installed-p (font-name)
+  "Check if font with FONT-NAME is available."
+  (find-font (font-spec :name font-name)))
 
-
-
+(when (display-graphic-p)
+  ;; Set default font
+  (cl-loop for font in '("Iosevka NF"
+                         "Fira Code Nerd Font"
+                         "Source Code Variable"
+                         "Menlo" "SF"
+                         "Monaco Mono" "Hack"
+                         "DejaVu Sans Mono"
+                         "Consolas")
+           when (font-installed-p font)
+           return (set-face-attribute 'default nil
+                                      :font font
+                                      :height (cond ((eq system-type 'darwin) 120)
+                                                    ((eq system-type 'windows-nt) 110)
+                                                    (t 120)))))
 
 ;;; Noto just seems to break emacs(?)
 (add-to-list 'face-ignored-fonts "Noto Color Emoji")

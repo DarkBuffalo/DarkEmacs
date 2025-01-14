@@ -5,13 +5,37 @@
 ;; Doom themes are best esp since I use Doom modeline. Also, Doom Dracula just
 ;; has better keyword support as far as I’ve seen. It’s also just easy on my
 ;; eyes.
+;; (package! doom-themes
+;;   :ensure t
+;;   :config
+;;   (setq doom-themes-enable-bold t
+;;         doom-themes-enable-italic t)
+;;   (load-theme 'doom-one t)
+;;   (doom-themes-org-config))
+
+(defvar dark-theme nil
+  "Theme de DarkEmacs.")
+
+(defun dark/init-theme ()
+  (if dark-theme
+      (load-theme dark-theme t)
+    (load-theme 'doom-one t)))
+
 (package! doom-themes
-  :ensure t
+  :hook (emacs-startup . dark/init-theme)
   :config
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
-  (load-theme 'doom-one t)
-  (doom-themes-org-config))
+  (doom-themes-visual-bell-config)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config)
+  (doom-themes-set-faces nil
+    ;; extending faces breaks orgmode collapsing for now
+   '(org-block-begin-line :extend nil)
+   '(org-block-end-line :extend nil)
+    ;; different sized headings are nice.
+   '(outline-1 :height 1.3)
+   '(outline-2 :height 1.1)
+   '(outline-3 :height 1.0)))
+
 
 ;; The dark nights sometimes need a little sun. The slight brightness is nice
 ;; for the eyes.
