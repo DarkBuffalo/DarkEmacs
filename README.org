@@ -1,0 +1,8 @@
+#+title:DarkEmacs
+#+author: DarkBuffalo
+
+#+caption: Screeshot
+#+attr_latex: :width 300px
+[[file:assets/images/Accueil.png]]
+
+-----
