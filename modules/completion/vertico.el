@@ -62,7 +62,9 @@
 
     :bind (:map vertico-map
                 ("<return>"   . vertico-directory-enter)
-                ("<S-return>" . vertico-exit-input))
+                ("<S-return>" . vertico-exit-input)
+                ("DEL" . vertico-directory-delete-word)
+                ("M-DEL" . vertico-directory-delete-char))
     :hook
     ((minibuffer-setup . cursor-intangible-mode)
      (after-init . vertico-mode)))
@@ -70,9 +72,9 @@
 
 
 (package! orderless
-          :custom
-          (completion-styles '(orderless basic))
-          (completion-category-overrides '((file (styles basic partial-completion)))))
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 
 
@@ -192,7 +194,21 @@
 )
 
 (package! marginalia
+  :after vertico
+  :hook (vertico-mode . marginalia-mode)
   :init
   (marginalia-mode))
 
 (setq enable-recursive-minibuffers t)
+
+
+;; FIXME: les icons ne s'afichent pas
+(with-feature! +icons
+  (package! nerd-icons-completion
+    :after marginalia vertico nerd-icons
+    :config
+    (nerd-icons-completion-mode)
+    :hook
+    (after-init . nerd-icons-completion-mode)
+    (marginalia-mode . nerd-icons-completion-marginalia-setup))
+)

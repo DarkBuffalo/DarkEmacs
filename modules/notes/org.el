@@ -295,3 +295,97 @@
   (add-to-list 'org-structure-template-alist '("ss" . "src sh"))
   (add-to-list 'org-structure-template-alist '("sp" . "src python"))
   );; end org
+
+
+
+(package! org-modern
+  :custom
+  (org-modern-fold-stars '(("▶" . "▼") ("▹" . "▿") ("▸" . "▾")))
+  (org-modern-star 'fold)
+  (org-modern-label-border 0.3)
+
+  ;; Edit settings
+  (org-auto-align-tags t)
+  (org-tags-column 75)
+  (org-catch-invisible-edits 'show-and-error)
+  (org-special-ctrl-a/e t)
+  (org-insert-heading-respect-content t)
+
+  ;; Org styling, hide markup etc.
+  (org-hide-emphasis-markers t)
+  (org-pretty-entities t)
+
+  ;; Agenda styling
+  (org-agenda-tags-column 0)
+  (org-agenda-block-separator ?─)
+  (org-agenda-time-grid
+   '((daily today require-timed)
+     (800 1000 1200 1400 1600 1800 2000)
+     " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+   org-agenda-current-time-string
+   "◀── now ─────────────────────────────────────────────────")
+  :hook ((org-mode . org-modern-mode)
+         (org-agenda-finalize . org-modern-agenda)))
+
+
+(package! org-modern-indent
+  :straight (:host github :repo "jdtsmith/org-modern-indent")
+  :hook
+  (org-indent-mode . org-modern-indent-mode))
+
+
+(package! org-noter
+  :after org
+  :custom
+  ;; The WM can handle splits
+  ;; org-noter-notes-window-location 'other-frame
+  ;; Please stop opening frames
+  (org-noter-always-create-frame nil)
+  ;; I want to see the whole file
+  (org-noter-hide-other nil)
+  ;; Everything is relative to the main notes file
+  ;; org-noter-notes-search-path (list bibtex-completion-notes-path)
+  (org-noter-highlight-selected-text t)
+  (org-noter-auto-save-last-location t)
+  (org-noter-separate-notes-from-heading t)
+  (org-noter-notes-search-path '(+dark-notes-dir))
+  :hook
+  ;; Org-noter’s purpose is to let you create notes that are kept in sync when
+  ;; you scroll through the [PDF etc] document
+  (org-noter-insert-heading . org-id-get-create))
+
+
+(package! ox-pandoc
+  :if (executable-find "pandoc")
+  :after ox
+  :demand t
+  :custom
+  (org-pandoc-options
+   '((standalone . t)
+     (mathjax . t)
+     (variable . "revealjs-url=https://revealjs.com")))
+  :config
+  (add-to-list 'org-export-backends 'pandoc))
+
+
+(package! ox-tufte)
+
+;; Generation de compte rendu
+(package! ox-report)
+
+
+;; reveal
+(package! revealjs
+  :straight (:host github :repo "hakimel/reveal.js"
+                   :files ("css" "dist" "js" "plugin")))
+
+(package! org-re-reveal
+    :after ox
+    :custom
+    (setq org-re-reveal-root (concat "file://" (expand-file-name "../js/reveal.js" (locate-library "reveal.js")))
+          org-re-reveal-theme "white"
+          org-re-reveal-transition "slide"
+          org-re-reveal-plugins '(markdown notes math search zoom)
+          org-re-reveal-revealjs-version "4"))
+
+(package! org-re-reveal-citeproc)

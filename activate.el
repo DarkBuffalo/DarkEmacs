@@ -29,12 +29,17 @@
         (lsp +dap +ui)
         (vc +git +gutter)
         ;; copilot
+        time
+        draw ;openscad
 
         :input
         ;;macos
 
         :notes
         (org)
+        notdeft
+        denote
+        latex
 
         :checkers
         (spell
@@ -45,7 +50,7 @@
 
         :completion
         (company +childframe)
-        vertico
+        (vertico +icons)
         snippets
         corfu
 
@@ -63,9 +68,10 @@
         (theme)
         (modeline +keycast)
         dashboard                                     ;;enlight
-        discoverability
+        (discoverability)
 
         :lang
+        elisp
         ;; (asm +mips)
         (go +lsp +dap)
         (js +ts +jsx +tsx +vue +lsp +dap)
@@ -81,6 +87,7 @@
          +freq +commands)
         ;; sicp
         music                                         ;; bongo
+        rss
         ))
 
 (provide 'activate)

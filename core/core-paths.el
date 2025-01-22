@@ -35,6 +35,7 @@
 (defvar +dark-roam-dir (expand-file-name "~/Org/"))
 (defvar +dark-data-dir (concat +dark-roam-dir ".data/"))
 (defvar +dark-project-dir (concat +dark-roam-dir "projects/"))
+(defvar +dark-notes-dir (concat +dark-roam-dir "notes/"))
 
 (defconst dark-local-dir (expand-file-name ".local/" user-emacs-directory)
   "Root directory for local storage.

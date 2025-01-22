@@ -13,3 +13,11 @@
 
   (with-module! :tools lsp
     (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)))
+
+
+(package! current-window-only
+  :straight (current-window-only
+             :type git
+             :host github
+             :repo "FrostyX/current-window-only")
+  :config (curent-window-only-mode))

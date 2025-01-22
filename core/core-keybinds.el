@@ -159,6 +159,7 @@
    ("X" . meow-goto-line)
    :map dark-leader-map
    ("?" . meow-cheatsheet)
+   ("SPC" . casual-editkit-main-tmenu)
    :map meow-normal-state-keymap
    ("'" . repeat)
    ("," . meow-inner-of-thing)
@@ -222,6 +223,21 @@
    ("x" . meow-line)
    ("y" . meow-save)
    ("z" . meow-pop-selection)))
+
+
+;; A collection of opinionated keyboard-driven user interfaces for various built-in Emacs modes
+(package! casual
+  :straight (:host github :repo "kickingvegas/casual")
+  ;;:bind ("C-o" . casual-editkit-main-tmenu)
+  :bind (:package isearch :map isearch-mode-map ([f2] . casual-isearch-tmenu))
+  :bind (:package dired :map dired-mode-map ([f2] . casual-dired-tmenu))
+  :bind (:package info :map Info-mode-map ([f2] . casual-info-tmenu))
+  :bind (:package calc :map calc-mode-map ([f2] . casual-calc-tmenu))
+  :bind (:package ibuffer :map ibuffer-mode-map ([f2] . casual-ibuffer-tmenu))
+  :bind (:package re-builder :map reb-mode-map ([f2] . casual-re-builder-tmenu))
+  :bind (:package bookmark :map bookmark-bmenu-mode-map ([f2] . casual-bookmarks-tmenu))
+  :bind (:package org-agenda :map org-agenda-mode-map ([f2] . casual-agenda-tmenu)))
+
 
 
 (provide 'core-keybinds)

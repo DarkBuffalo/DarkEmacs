@@ -2,6 +2,13 @@
 (require 'core-util)
 
 
+
+
+(defun dark-browse-proj (dir)
+  "Browse a dir for choose a file."
+  (let ((default-directory (file-truename (expand-file-name dir))))
+    (call-interactively #'find-file)))
+
 ;; ADD QUOTE on dashboard-footer
 (defvar +dark-quotes-file (expand-file-name "quotes.txt" dark-assets-dir)
   "Fichier comprenant les citations")
@@ -90,9 +97,7 @@
        ,(enlight-menu
          `(("Configuration"
             ("Jump to the config"
-             ;; (progn
-             ;;   (find-file ,+dark-conf-f)
-             ;;   (goto-char (point-min)))
+             (dark-browse-proj "~/.darkemacs/")
              "c")
             ("Bookmark" (list-bookmarks) "b"))
            ("Applications"

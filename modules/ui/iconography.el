@@ -40,3 +40,22 @@
    (when (not (member "Symbols Nerd Font Mono" (font-family-list)))
      (nerd-icons-install-fonts t)
      (revert-buffer))))
+
+
+
+;; Integrate `nerd-icons' with `ibuffer'
+(package! nerd-icons-ibuffer
+  :defer t
+  :straight t
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+
+;; Integrate `nerd-icons' with `archive-mode', `tar-mode', `dired-mode', and `ztree'
+(package! nerd-icons-multimodal
+  :defer t
+  :straight (:host github :repo "abougouffa/nerd-icons-multimodal")
+  :hook ((archive-mode tar-mode dired-mode ztree-mode) . nerd-icons-multimodal-mode))
+
+
+;; Extra colors for `Info-mode'
+(package! info-colors
+  :hook (Info-selection . info-colors-fontify-node))
