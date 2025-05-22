@@ -44,6 +44,9 @@ TODO: figure out how to move to doom esque management from `no-littering'.")
 (defconst dark-assets-dir (expand-file-name "assets/" user-emacs-directory)
   "Directory with all the module files.")
 
+(defvar dark-lisp-dir (concat dark-assets-dir "lisp/")
+  "Directory for lisp .")
+
 (defconst dark-etc-dir (expand-file-name "etc/" dark-local-dir)
   "Directory for non-volatile local storage.
 Use this for files that don't change much, like server binaries, external

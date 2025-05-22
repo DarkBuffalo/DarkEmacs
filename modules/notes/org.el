@@ -389,3 +389,120 @@
           org-re-reveal-revealjs-version "4"))
 
 (package! org-re-reveal-citeproc)
+
+
+(package! org-gnosis
+  :straight (:repo "https://git.thanosapollo.org/org-gnosis")
+  :config
+  ;; Common settings you might want to tweak to your liking
+  (setf
+   ;; Whe non-nil, create notes as gpg encrypted files
+   org-gnosis-create-as-gpg nil
+   ;; TODO files, commonly used for templates.
+   org-gnosis-todo-files org-agenda-files
+   ;; Used in #'org-gnosis-todos for template generation
+   org-gnosis-bullet-point-char "+"
+   ;; Default completing-read function
+   org-gnosis-completing-read-func #'org-completing-read
+   ;; Recommended if you use a vertical completion system (e.g vertico)
+   org-gnosis-show-tags t
+   org-gnosis-node-templates
+   '(("Default" (lambda () "" "#+startup: content\n")))
+   org-gnosis-journal-templates
+   '(("2050 Plan" journal/plan-2050)
+     ("Empty" (lambda () "" "#+startup: content\n"))))
+
+  (defun example/org-gnosis-book-template ()
+    (let ((date (format-time-string "%Y-%m-%d"))
+          (book-title (completing-read
+                       "Example book: "
+                       '("Free Software, Free Society" "How to Take Smart Notes"))))
+      (format "#+DATE: %s \n#+BOOK_TITLE: %s\n\n* Main Idea\n* Key Points\n* Own Thoughts"
+              date book-title)))
+
+  (defun journal/plan-2050 ()
+    "My journaling template for 2050-01-01."
+    (let ((days-remaining (- (time-to-days (encode-time 0 0 0 1 1 2050))
+                             (time-to-days (current-time)))))
+      (format
+       "\nDays until 2050: *%s* \n\n* Records\n\n* Daily notes\n* Goals\n%s"
+       days-remaining (org-gnosis-todos))))
+
+  ;; (add-to-list org-gnosis-node-templates '("Book Example" example/org-gnosis-book-template))
+
+  :bind (:map dark-note-map
+              ("f" . org-gnosis-find)
+              ("i" . org-gnosis-insert)
+              ("t" . org-gnosis-find-by-tag)))
+
+
+;; use :vc if you are on GNU Emacs version 30
+;; otherwise clone the repos and use :load-path
+(package! simple-httpd
+  :vc (:url "https://github.com/skeeto/emacs-web-server/"))
+
+(package! websocket
+  :straight (:host github :repo "ahyatt/emacs-websocket"))
+
+;; Install org-gnosis-ui
+(package! org-gnosis-ui
+  :straight (:repo "https://git.thanosapollo.org/org-gnosis-ui")
+  :after org-gnosis)
+
+
+
+(use-package org-remark
+  :bind (;; :bind keyword also implicitly defers org-remark itself.
+         ;; Keybindings before :map is set for global-map. Adjust the keybinds
+         ;; as you see fit.
+         ("C-c n m" . org-remark-mark)
+         ("C-c n l" . org-remark-mark-line)
+         :map org-remark-mode-map
+         ("C-c n o" . org-remark-open)
+         ("C-c n ]" . org-remark-view-next)
+         ("C-c n [" . org-remark-view-prev)
+         ("C-c n r" . org-remark-remove)
+         ("C-c n d" . org-remark-delete)))
+
+
+(package! org-download
+  :after org
+  :commands
+  org-download-dnd
+  org-download-yank
+  org-download-screenshot
+  org-download-clipboard
+  org-download-dnd-base64
+  :config
+  (org-download-enable)
+  (with-os! (windows-nt)
+    (setq org-download-screenshot-method "i_view64 /capture=4 /convert=\"%s\""
+          org-download-display-inline-images 'posframe
+          org-download-abbreviate-filename-function 'expand-file-name))
+  (with-os! (gnu/linux)
+    (setq org-download-screenshot-method "scrot -s %s"
+          org-download-display-inline-images t
+          org-download-abbreviate-filename-function 'expand-file-name))
+
+  (setq org-startup-with-inline-images t
+        org-download-image-attr-list '("#+ATTR_HTML: :width 40% :align center"
+                                       "#+ATTR_LATEX: :width 0.5\\textwidth")
+	    org-download-method 'attach
+	    org-download-link-format "[[download:%s]]\n"
+        org-download-link-format-function
+        (lambda (filename)
+          (if (eq org-download-method 'attach)
+              (format "[[attachment:%s]]\n"
+                      (org-link-escape
+                       (file-relative-name filename (org-attach-dir))))
+            ;; Handle non-image files a little differently. Images should be
+            ;; inserted as normal with previews. Other files, like pdfs or zips,
+            ;; should be linked to, with an icon indicating the type of file.
+            (format (concat (unless (image-type-from-file-name filename)
+                              (concat (+org-attach-icon-for filename)
+                                      " "))
+                            org-download-link-format)
+                    (org-link-escape
+                     (funcall org-download-abbreviate-filename-function filename))))))
+  ;; Drag-and-drop to `dired`
+  (add-hook 'dired-mode-hook 'org-download-enable))

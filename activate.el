@@ -30,7 +30,9 @@
         (vc +git +gutter)
         ;; copilot
         time
-        draw ;openscad
+        draw                            ;openscad
+        ai
+        web
 
         :input
         ;;macos
@@ -38,7 +40,7 @@
         :notes
         (org)
         notdeft
-        denote
+        ;; denote
         latex
 
         :checkers
@@ -67,27 +69,33 @@
         iconography
         (theme)
         (modeline +keycast)
-        dashboard                                     ;;enlight
+        dashboard ;;enlight
         (discoverability)
 
         :lang
         elisp
+        (lisp +slime)
+        racket
+        ahk
         ;; (asm +mips)
         (go +lsp +dap)
         (js +ts +jsx +tsx +vue +lsp +dap)
         (web +emmet +vtl +lsp +dap)
         (python +lsp +dap)
         shell
-        (yaml +lsp) ; pnpm -g add yaml-language-server
+        ;;(yaml +lsp) ; pnpm -g add yaml-language-server
         json
         (graphql +lsp)
 
         :misc
+        cipher
         (key-logger
          +freq +commands)
         ;; sicp
-        music                                         ;; bongo
+        music ;; bongo
         rss
+        blog
+        social
         ))
 
 (provide 'activate)

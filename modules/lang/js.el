@@ -32,6 +32,10 @@
 (after! yasnippet
   (package! react-snippets))
 
+
+(package! jinja2-mode)
+
+
 ;; actual js config
 (package! js2-mode
   :mode "\\.[mc]?js\\'"

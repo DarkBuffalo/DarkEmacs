@@ -29,7 +29,7 @@
 (defvar dark-toggle-map (make-sparse-keymap) "key-map for toggle commands")
 (defvar dark-open-map (make-sparse-keymap) "key-map for open commands")
 (defvar dark-version-control-map (make-sparse-keymap) "key-map for version control commands")
-
+(defvar dark-note-map (make-sparse-keymap) "key-map for open commands")
 
 (define-key dark-leader-map (kbd "b") (cons "buffer" dark-buffer-map))
 (define-key dark-leader-map (kbd "f") (cons "file" dark-file-map))
@@ -37,7 +37,7 @@
 (define-key dark-leader-map (kbd "t") (cons "toggle" dark-toggle-map))
 (define-key dark-leader-map (kbd "v") (cons "version-control" dark-version-control-map))
 (define-key dark-leader-map (kbd "w") (cons "window" dark-window-map))
-
+(define-key dark-leader-map (kbd "n") (cons "window" dark-note-map))
 (define-key dark-leader-map (kbd "g") (cons "goto" goto-map))
 (define-key dark-leader-map (kbd "h") (cons "help" help-map))
 (define-key dark-leader-map (kbd "s") (cons "search" search-map))
@@ -77,6 +77,7 @@
   (if tab-line-mode
       (advice-add #'meow-quit :override #'dark-tab-line-close-tab-function)
     (advice-remove #'meow-quit #'dark-tab-line-close-tab-function)))
+
 
 
 (package! meow

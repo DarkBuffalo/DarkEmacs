@@ -21,3 +21,17 @@
              :host github
              :repo "FrostyX/current-window-only")
   :config (curent-window-only-mode))
+
+
+
+;;; Ultra-scroll
+;; https://github.com/jdtsmith/ultra-scroll
+(package! ultra-scroll
+  :straight (ultra-scroll
+             :host github
+             :repo "jdtsmith/ultra-scroll")
+  :init
+  (setq scroll-conservatively 101       ; As instructed by the README
+        scroll-margin 0)
+  :config
+  (ultra-scroll-mode 1))

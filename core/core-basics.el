@@ -13,6 +13,32 @@
   (if (fboundp fn)
       (funcall fn 'utf-8)))
 
+;; Encodage général en UTF-8
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8-unix)
+(set-keyboard-coding-system 'utf-8-unix)
+(set-default-coding-systems 'utf-8-unix)
+
+(set-clipboard-coding-system 'utf-8)
+(set-file-name-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8-unix)
+(prefer-coding-system 'utf-8-unix)
+(modify-coding-system-alist 'process "*" 'utf-8)
+(when (display-graphic-p)
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+
+;; Encoding
+;; We tell emacs to use UTF-8 encoding as much as possible.
+
+
+(set-language-environment "UTF-8") ; Set up multilingual environment
+(setq org-export-html-coding-system 'utf-8
+      htmlize-html-charset "utf-8")
+(set-selection-coding-system
+ (if (eq system-type 'windows-nt)
+     'utf-16-le  ;; https://rufflewind.com/2014-07-20/pasting-unicode-in-emacs-on-windows
+   'utf-8))
+
 (package! unidecode)
 
 ;; Backups
@@ -71,18 +97,17 @@
 
 
 
-;; (custom-set-faces
-;;  '(default
-;;    (
-;;     (((type ns)) ;; mac-specific config
-;;      (
-;;       :family "Iosevka NF"
-;;       :height 180
-;;       ))
-;;     (t
-;;      (
-;;       :family "Iosevka NF"
-;;       :height 161)))))
+(custom-set-faces
+ '(default
+   (
+    (((type ns)) ;; mac-specific config
+     (
+      :family "Iosevka NF"
+      :height 180
+      ))
+    (t
+     (:family "Iosevka NF"
+      :height 120)))))
 
 
 (defgroup dark nil
@@ -222,6 +247,15 @@ space)"
 ;; TODO: refine this somewhere between refining dashboard, buffers, search, and projectile
 ;; Persist variables across sessions
 (setq savehist-file (expand-file-name "savehist.el" dark-cache-dir))
+
+
+
+;; demo elisp
+(package! elisp-demos
+  :config
+  (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
+
+
 
 (provide 'core-basics)
 ;;; core-basics.el ends here
