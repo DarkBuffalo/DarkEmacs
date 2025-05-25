@@ -71,70 +71,15 @@
 ;;; prevents some cases of flickering.
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-;; FONTS
-(defun font-installed-p (font-name)
-  "Check if font with FONT-NAME is available."
-  (find-font (font-spec :name font-name)))
-
-
-
-
-(when (display-graphic-p)
-  ;; Set default font
-  (cl-loop for font in '("Iosevka NF"
-                         "Fira Code Nerd Font"
-                         "Source Code Variable"
-                         "Menlo" "SF"
-                         "Monaco Mono" "Hack"
-                         "DejaVu Sans Mono"
-                         "Consolas")
-           when (font-installed-p font)
-           return (set-face-attribute 'default nil
-                                      :font font
-                                      :height (cond ((eq system-type 'darwin) 120)
-                                                    ((eq system-type 'windows-nt) 110)
-                                                    (t 120)))))
-
-
 
 (custom-set-faces
  '(default
-   (
-    (((type ns)) ;; mac-specific config
-     (
-      :family "Iosevka NF"
-      :height 180
-      ))
+   ((((type ns)) ;; mac-specific config
+     ( :family "Iosevka NF"
+       :height 180))
     (t
      (:family "Iosevka NF"
       :height 120)))))
-
-
-(defgroup dark nil
-  "Only dark things."
-  :prefix "dark-"
-  :group 'dark)
-
-(defcustom dark-font-size 18
-  "My default font size."
-  :type 'field)
-
-(defvar dark-font-name "Iosevka NF"
-  "My default font.")
-
-(defun dark-set-frame-font-size (&optional font-size)
-  "Change frame font size to FONT-SIZE.
-If no FONT-SIZE provided, reset the size to its default variable."
-  (let ((font-size
-         (or font-size 16
-
-             ;;(car (get 'dark-font-size 'standard-value))
-             )))
-    (customize-set-variable 'dark-font-size font-size)
-    (set-frame-font
-     (format "%s %d" dark-font-name font-size) nil t)))
-
-;;(dark-set-frame-font-size) ;; FIXME
 
 
 ;;; Noto just seems to break emacs(?)
@@ -192,8 +137,8 @@ If no FONT-SIZE provided, reset the size to its default variable."
 (global-font-lock-mode t)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 
-(global-set-key (kbd "M-;")
-                'comment-line)
+;; (global-set-key (kbd "M-;")
+;;                 'comment-line)
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

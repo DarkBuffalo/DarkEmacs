@@ -78,20 +78,10 @@
 
 
 
-;; (package! consult
-;;   :bind
-;;   ([remap switch-to-buffer] . consult-buffer)
-;;   ([remap projectile-grep] . consult-grep)
-;;   ("C-s" . consult-line)
-;;   ("C-S-s" . consult-focus-lines)
-;;   :config
-;;   (setq completion-in-region-function #'consult-completion-in-region))
-
-
-
-
 ;; Example configuration for Consult
 (package! consult
+  :init
+  (recentf-mode)
   ;; Replace bindings. Lazily loaded by `use-package'.
   :bind (;; C-c bindings in `mode-specific-map'
          ("C-c M-x" . consult-mode-command)
@@ -130,7 +120,7 @@
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
          ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)
+         ("C-s" . consult-line)
          ("M-s L" . consult-line-multi)
          ("M-s k" . consult-keep-lines)
          ("M-s u" . consult-focus-lines)

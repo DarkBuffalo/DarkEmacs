@@ -48,14 +48,12 @@
   ;; as a server on Windows due to requiring the dir being fixed to a
   ;; "safe" directory, which we cannot ensure in our portable environment.
   (cl-defun server-ensure-safe-dir (dir)
-            (unless (file-exists-p dir)
-              (make-directory dir t))))
+    (unless (file-exists-p dir)
+      (make-directory dir t))))
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (when (and window-system (not (server-running-p)))
-              (server-start))))
 
+(when (and window-system (not (server-running-p)))
+  (server-start))
 
 ;; en cas de bug ce paquet sauve des vies
 ;; extremely helpful for figuring out what went wrong with the config file

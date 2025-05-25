@@ -12,7 +12,7 @@
      ;; TODO: account for different machines properly
      (- (if (equal system-type 'darwin)
             150
-          110)
+          120)
         (face-attribute 'default :height)))))
 
 
