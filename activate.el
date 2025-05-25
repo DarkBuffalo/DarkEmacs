@@ -29,7 +29,7 @@
         (lsp +dap +ui)
         (vc +git +gutter)
         ;; copilot
-        time
+        (time +vundo)
         draw                            ;openscad
         ai
         web
@@ -42,6 +42,7 @@
         notdeft
         ;; denote
         latex
+        research
 
         :checkers
         (spell
