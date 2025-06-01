@@ -172,7 +172,10 @@
 (require 'recentf)
 
 (setq recentf-save-file (expand-file-name "recentf.el" dark-cache-dir)
-      recentf-max-saved-items 10)
+      recentf-max-saved-items 100
+      recentf-exclude '("COMMIT_MSG" "COMMIT_EDITMSG" "github.*txt$"
+                          "[0-9a-f]\\{32\\}-[0-9a-f]\\{32\\}\\.org"
+                          ".*png$" ".*cache$"))
 
 (defun doom--recentf-file-truename-fn (file)
   "Resolve symlinks, strip out the /sudo:X@ prefix in local tramp paths, and

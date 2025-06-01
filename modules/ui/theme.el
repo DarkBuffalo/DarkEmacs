@@ -37,6 +37,38 @@
    '(outline-3 :height 1.0)))
 
 
+(package! modus-themes
+  :init
+  (setq modus-themes-bold-constructs t
+        modus-themes-completions '((matches . (extrabold intense background))
+                                   (selection . (semibold accented intense))
+                                   (popup . (accented)))
+        modus-themes-diffs 'desaturated
+        modus-themes-headings '((1 . (1.2))
+                                (2 . (rainbow 1.1))
+                                (3 . (1))
+                                (t . (monochrome)))
+        modus-themes-hl-line '(nil)
+        modus-themes-links '(nil)
+        modus-themes-mixed-fonts nil
+        modus-themes-mode-line '(moody borderless accented)
+        modus-themes-tabs-accented t
+        modus-themes-prompts '(background)
+        modus-themes-region '(accented bg-only)
+        modus-themes-syntax '(faint)
+        modus-themes-tabs-accented nil)
+  (setq modus-themes-org-agenda
+        '((header-date . (grayscale workaholic bold-today))
+          (header-block . (1.5 semibold))
+          (scheduled . uniform)
+          (event . (italic))
+          (habit . traffic-light)))
+  ;;(modus-themes-load-themes)
+  :config
+  ;;(modus-themes-load-operandi)
+  :bind ("<f5>" . modus-themes-toggle))
+
+
 ;; The dark nights sometimes need a little sun. The slight brightness is nice
 ;; for the eyes.
 (package! solaire-mode

@@ -449,3 +449,19 @@
 (package! org-gnosis-ui
   :straight (:repo "https://git.thanosapollo.org/org-gnosis-ui")
   :after org-gnosis)
+
+
+(package! org-sticky-header
+  :defer t
+  :hook (org-mode . org-sticky-header-mode)
+  :config
+  (setq-default
+   org-sticky-header-full-path 'full
+   ;; Child and parent headings are seperated by a /.
+   org-sticky-header-outline-path-separator " / "))
+
+
+(package! org-rich-yank
+  :demand t
+  :bind (:map org-mode-map
+              ("C-M-y" . org-rich-yank)))

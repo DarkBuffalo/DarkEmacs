@@ -506,3 +506,11 @@
                      (funcall org-download-abbreviate-filename-function filename))))))
   ;; Drag-and-drop to `dired`
   (add-hook 'dired-mode-hook 'org-download-enable))
+
+
+
+
+(package! org-similarity
+  :straight ( :host github
+              :repo "brunoarine/org-similarity"
+              :branch "main"))

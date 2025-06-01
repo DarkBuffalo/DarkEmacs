@@ -1,7 +1,7 @@
 #+title:DarkEmacs
 #+author: DarkBuffalo
 
-#+caption: Screeshot
+#+caption: Screenshot
 #+attr_latex: :width 300px
 [[file:assets/images/Accueil.png]]
 

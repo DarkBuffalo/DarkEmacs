@@ -45,8 +45,7 @@
         research
 
         :checkers
-        (spell
-         +hunspell)
+        ;;(spell +hunspell)
         (syntax
          +flycheck)
         ;;(grammar +lsp) ; requires node 16 and pnpm -g add @emacs-grammarly/grammarly-languageserver
@@ -56,6 +55,7 @@
         (vertico +icons)
         snippets
         corfu
+        (cape +icons)
 
         :editor
         format
@@ -72,6 +72,7 @@
         (modeline +keycast)
         dashboard ;;enlight
         (discoverability)
+        treemacs
 
         :lang
         elisp
@@ -87,6 +88,7 @@
         ;;(yaml +lsp) ; pnpm -g add yaml-language-server
         json
         (graphql +lsp)
+        tool
 
         :misc
         cipher

@@ -42,7 +42,6 @@
 
 
 
-
 (when (eql system-type 'windows-nt)
   ;; We hack this to never error because otherwise emacs refuses to work
   ;; as a server on Windows due to requiring the dir being fixed to a
@@ -51,9 +50,19 @@
     (unless (file-exists-p dir)
       (make-directory dir t))))
 
-
+;; serveur
 (when (and window-system (not (server-running-p)))
   (server-start))
+
+
+;;;; Paquets
+
+;; restart emacs
+(package! restart-emacs
+  :defer t
+  :init
+  (defalias 're #'restart-emacs))
+
 
 ;; en cas de bug ce paquet sauve des vies
 ;; extremely helpful for figuring out what went wrong with the config file

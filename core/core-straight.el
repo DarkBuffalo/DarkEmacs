@@ -44,10 +44,6 @@
 
 
 
-
-
-
-
 ;; Optimize Startup Time
 
 ;; Inspiré par :
@@ -148,7 +144,7 @@
 
 ;; PERF: Disabling BPA makes redisplay faster, but might produce incorrect
 ;;   reordering of bidirectional text with embedded parentheses (and other
-;;   bracket characters whose 'paired-bracket' Unicode property is non-nil).
+
 (setq bidi-inhibit-bpa t)  ; Emacs 27+ only
 
 ;; Reduce rendering/line scan work for Emacs by not rendering cursors or regions
@@ -160,7 +156,8 @@
 (setq ffap-machine-p-known 'reject)
 
 ;; Emacs "updates" its ui more often than it needs to, so slow it down slightly
-(setq idle-update-delay 1.0)  ; default is 0.5
+;;(setq idle-update-delay 1.0)  ; default is 0.5
+(setq wich-func-update-delay 1.0)  ; default is 0.5
 
 ;; Font compacting can be terribly expensive, especially for rendering icon
 ;; fonts on Windows. Whether disabling it has a notable affect on Linux and Mac
@@ -203,6 +200,13 @@
 (setq straight-use-package-by-default t
       use-package-always-defer t)
 
+;;; Use-package modifications
+;; from doom
+(setq use-package-compute-statistics init-file-debug
+      use-package-verbose init-file-debug
+      use-package-minimum-reported-time (if init-file-debug 0 0.1)
+      use-package-expand-minimally (not noninteractive))
+
 (defvar bootstrap-version)
 (let ((bootstrap-file (concat straight-base-dir "straight/repos/straight.el/bootstrap.el"))
       (install-url "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el")
@@ -221,8 +225,7 @@
 NAME and ARGS are as in `use-package'."
   (declare (indent defun))
   (add-to-list 'core-straight--loaded-packages name)
-  `(use-package ,name
-     ,@args))
+  `(use-package ,name ,@args))
 
 (provide 'core-straight)
 ;;; core-straight.el ends here
