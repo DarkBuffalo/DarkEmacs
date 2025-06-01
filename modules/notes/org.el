@@ -88,6 +88,64 @@
                         (,(expand-file-name  "projects.org" +dark-project-dir) :regexp . "\\(?:\\(?:Note\\|Task\\)s\\)")))
 
 
+
+;;; AGENDA
+;; Functions to keep calendar in sight when working on the agenda
+(defun dark-window-displaying-agenda-p (window)
+  (equal (with-current-buffer (window-buffer window) major-mode)
+         'org-agenda-mode))
+
+(defun dark-position-calendar-buffer (buffer alist)
+  (let ((agenda-window (car (remove-if-not #'dark-window-displaying-agenda-p (window-list)))))
+    (when agenda-window
+      (if (not (get-buffer-window "*Calendar*"))
+          (let ((desired-window (split-window agenda-window nil 'below)))
+            (set-window-buffer desired-window buffer)
+            desired-window)))))
+
+(add-to-list 'display-buffer-alist (cons "\\*Calendar\\*" (cons #'dark-position-calendar-buffer nil)))
+(package! calfw)
+(package! calfw-org)
+
+
+(defun format-closed-query ()
+  (format "+TODO=\"DONE\"+CLOSED>=\"<-%sd>\"" (read-string "Number of days: ")))
+
+
+(package! org-super-agenda
+  :after org
+  :config
+  (package! origami
+    :bind (:map org-super-agenda-header-map ("<tab>" . origami-toggle-node))
+    :hook (org-agenda-mode . origami-mode)))
+
+(add-hook 'org-agenda-mode-hook 'org-super-agenda-mode)
+
+(setq org-agenda-search-view-always-boolean t
+      org-agenda-block-separator (propertize
+                                  (make-string (frame-width) ?\u2594)
+                                  'face '(:foreground "grey38"))
+      org-super-agenda-header-separator ""
+      org-habit-show-habits-only-for-today nil
+      org-agenda-restore-windows-after-quit t
+      org-agenda-show-future-repeats nil
+      org-deadline-warning-days 2
+      org-agenda-window-setup 'current
+      org-agenda-span 'day
+      org-agenda-start-on-weekday 1 ;; nil
+      org-agenda-skip-deadline-prewarning-if-scheduled t
+      org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-format-date "\n%A, %-e %B %Y"
+      org-agenda-dim-blocked-tasks t)
+
+
+(org-super-agenda--def-auto-group category "their org-category property"
+  :key-form (org-super-agenda--when-with-marker-buffer (org-super-agenda--get-marker item)
+              (org-get-category))
+  :header-form (concat " " key))
+
+
   (org-agenda-custom-commands
    '(("g" "Get Things Done (GTD)"
       ((agenda ""
@@ -132,6 +190,50 @@
        (tags "CLOSED>=\"<today>\""
              ((org-agenda-overriding-header "\nRéalisés Aujourd'hui\n"))))
       ((org-agenda-category-filter-preset '("-LITERATURE"))))
+
+     ("p" "Project backlog"
+      ((todo "TODO|NEXT|WAITING|HOLD"
+             ((org-agenda-overriding-header "  Inbox\n")
+              (org-agenda-prefix-format "  ")
+              (org-agenda-files (list (expand-file-name  "inbox.org" +dark-project-dir)))))
+       (todo "TODO|NEXT|WAITING|HOLD"
+             ((org-agenda-overriding-header "  Project TODOs")
+              (org-agenda-prefix-format "  ")
+              (org-agenda-files (list (expand-file-name  "projets.org" +dark-project-dir)))
+              (org-super-agenda-groups
+               '((:discard (:scheduled t :date t))
+                 (:auto-category t)
+                 (:discard (:anything t))))))
+
+       (todo "TODO|NEXT"
+             ((org-agenda-overriding-header "  Reading List")
+              (org-agenda-prefix-format "  ")
+              (org-agenda-files (list (expand-file-name  "agenda.org" +dark-project-dir)))
+              (org-super-agenda-groups
+               '((:discard (:scheduled t))
+                 (:name " Priority A reading" :priority "A")
+                 (:name " Priority B reading" :priority "B")
+                 (:name " Priority C reading" :priority "C")
+                 (:discard (:anything t))))))
+
+       ))
+
+
+     ("d" "Dagelijkse Takenlijst"
+      ((agenda ""
+               ((org-agenda-overriding-header " Planner")
+                (org-agenda-prefix-format '((agenda . " %?-12t")))
+                (org-agenda-span 'day)
+                (org-deadline-warning-days 0)
+                (org-super-agenda-groups
+                 '((:name "" :time-grid t :scheduled t :deadline t :category "verjaardag")
+                   (:discard (:anything t))))))))
+
+     ("w" "Weekly review"
+         ((tags (format-closed-query)
+                ((org-agenda-overriding-header "Overview of DONE tasks")
+                 (org-agenda-archives-mode t)))))
+
 
      ("l" "LDC"
       ((agenda ""
@@ -295,6 +397,32 @@
   (add-to-list 'org-structure-template-alist '("ss" . "src sh"))
   (add-to-list 'org-structure-template-alist '("sp" . "src python"))
   );; end org
+
+
+(defun side-by-side-agenda-view ()
+  (progn
+    (org-agenda nil "a")
+    (split-window-right)
+    (org-agenda-redo)
+    (split-window-below)
+    (other-window 1)
+    (cfw:open-org-calendar)
+    (setq org-agenda-sticky t)
+    (other-window 1)
+    (org-agenda nil "p")
+    (setq org-agenda-sticky nil)))
+
+;;;###autoload
+(defun show-my-agenda ()
+  (interactive)
+  (let ((tab-bar-index (tab-bar--tab-index-by-name "Agenda")))
+    (if tab-bar-index
+        (tab-bar-select-tab (+ tab-bar-index 1))
+      (progn
+        (tab-bar-new-tab)
+        (tab-bar-rename-tab "Agenda")
+        (side-by-side-agenda-view)
+        (message "Agenda loaded")))))
 
 
 
@@ -514,3 +642,19 @@
   :straight ( :host github
               :repo "brunoarine/org-similarity"
               :branch "main"))
+
+
+(package! org-sticky-header
+  :defer t
+  :hook (org-mode . org-sticky-header-mode)
+  :config
+  (setq-default
+   org-sticky-header-full-path 'full
+   ;; Child and parent headings are seperated by a /.
+   org-sticky-header-outline-path-separator " / "))
+
+
+(package! org-rich-yank
+  :demand t
+  :bind (:map org-mode-map
+              ("C-M-y" . org-rich-yank)))
